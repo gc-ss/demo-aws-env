@@ -11,9 +11,11 @@ g_s3_client = boto3.client("s3")
 g_dynamo_client = boto3.client("dynamodb")
 
 # global argparser
+# takes one required argument, region
+# additionally takes a flag that will toggle tagging on resources created by this script. (default false)
 parser = argparse.ArgumentParser(description='Bootstrap Terraform Remote Backends')
 parser.add_argument("region")
-parser.add_argument("-t", "--tag", help="Tags bootstrapped resources as being managed by Bootstrap", action="store_true")
+parser.add_argument("-t", "--tag", help="Tags bootstrapped resources as being managed by Bootstrap", action="store_false")
 args = parser.parse_args()
 
 def create_bucket(region):
@@ -26,8 +28,11 @@ def create_bucket(region):
     )
     return response
 
-#def tag_bucket(tags):
+# Logic here:
+# 1. Create S3 Bucket
+# 2. in S3 response, grab bucket name (since it's randomized)
+# 3. if -t/--tag is passed into script, tag S3 bucket with "Managed:Bootstrap"
+def tag_bucket(tags):
 
 bucket = create_bucket(args.region)
 print(bucket.json())
-# pass in tag bucket with parsed bucket name from return response

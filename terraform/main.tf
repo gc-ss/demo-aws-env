@@ -1,4 +1,5 @@
 terraform {
+    # storing statefile in S3
     backend "s3" {
         bucket  = "terraform-285db723-5211-49ad-840b-ad14c9f72d2e"
         region  = "us-west-2"
@@ -7,6 +8,7 @@ terraform {
         encrypt         = true
     }
     required_providers {
+        # used for random number, string, server name generation
         random = {
             source  = "hashicorp/random"
             version = "3.1.0"
@@ -32,6 +34,7 @@ resource "aws_s3_bucket" "terraform_state" {
     }
 }
 
+# Locking state for ensuring multiple developer state applications don't break state.
 resource "aws_dynamodb_table" "terraform" {
     name            = "terraform"
     billing_mode    =  "PAY_PER_REQUEST"
@@ -46,7 +49,6 @@ resource "aws_dynamodb_table" "terraform" {
         Managed = "Terraform"
     }
 }
-
 
 locals {
     env = "${terraform.workspace}"

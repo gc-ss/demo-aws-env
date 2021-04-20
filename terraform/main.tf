@@ -53,3 +53,4 @@ resource "aws_dynamodb_table" "terraform" {
 locals {
     env = "${terraform.workspace}"
 }
+

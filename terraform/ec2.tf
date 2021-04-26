@@ -22,7 +22,7 @@ resource "aws_instance" "training-vault-01" {
   )
 }
 
-resource "aws_instance" "jenkins-server-01" {
+resource "aws_instance" "training-jenkins-01" {
   ami                  = data.aws_ami.amazon-linux-2.id
   instance_type        = "t3.micro"
   iam_instance_profile = var.iam_role
@@ -34,7 +34,7 @@ resource "aws_instance" "jenkins-server-01" {
   tags = merge(
     var.tags_mgmt,
     {
-      Name = "jenkins-server-01"
+      Name = "training-jenkins-01"
     }
   )
 }

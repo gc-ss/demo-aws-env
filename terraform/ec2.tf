@@ -12,7 +12,7 @@ resource "aws_instance" "training-vault-01" {
   ami                  = data.aws_ami.amazon-linux-2.id
   instance_type        = "t3.micro"
   iam_instance_profile = var.iam_role
-  subnet_id            = module.vpc.private_subnets[0]
+  subnet_id            = module.demo.private_subnets[0]
 
   tags = merge(
     var.tags_mgmt,
@@ -26,7 +26,7 @@ resource "aws_instance" "training-jenkins-01" {
   ami                  = data.aws_ami.amazon-linux-2.id
   instance_type        = "t3.micro"
   iam_instance_profile = var.iam_role
-  subnet_id            = module.vpc.private_subnets[0]
+  subnet_id            = module.demo.private_subnets[0]
 
   # Jenkins Bootstrapping
   user_data = file("helpers/jenkins_bootstrap.sh")

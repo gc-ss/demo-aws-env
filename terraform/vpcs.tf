@@ -1,4 +1,4 @@
-module "vpc" {
+module "demo" {
   source = "terraform-aws-modules/vpc/aws"
 
   name = var.vpc_facts.name

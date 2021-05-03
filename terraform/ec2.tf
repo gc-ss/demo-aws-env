@@ -78,3 +78,8 @@ resource "aws_instance" "dev_instance" {
     }
   )
 }
+
+resource "aws_eip" "dev" {
+  instance = aws_instance.dev_instance.id
+
+}

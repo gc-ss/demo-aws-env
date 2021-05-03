@@ -61,3 +61,20 @@ resource "aws_instance" "training-prometheus-01" {
     }
   )
 }
+
+resource "aws_instance" "dev_instance" {
+  ami                  = data.aws_ami.amazon-linux-2.id
+  instance_type        = "t3.micro"
+  iam_instance_profile = var.iam_role
+  subnet_id            = module.demo.public_subnets[0]
+
+  # Security Groups
+  vpc_security_group_ids = ["${aws_security_group.external_access.id}"]
+
+  tags = merge(
+    var.tags_mgmt,
+    {
+      Name = var.dev_instance_dns
+    }
+  )
+}

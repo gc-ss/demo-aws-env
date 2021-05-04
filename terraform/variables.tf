@@ -16,3 +16,9 @@ variable "tags_mgmt" {
     Managed = "Terraform"
   }
 }
+
+# LTS version of Amazon Linux 2
+variable "aws_ami_id" { 
+    type = string
+    default = "ami-0cf6f5c8a62fa5da6"
+}

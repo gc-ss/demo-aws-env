@@ -1,15 +1,5 @@
-data "aws_ami" "amazon-linux-2" {
-  most_recent = true
-  owners      = ["amazon"]
-
-  filter {
-    name   = "name"
-    values = ["*amzn2-ami-hvm*"]
-  }
-}
-
 resource "aws_instance" "training-vault-01" {
-  ami                  = data.aws_ami.amazon-linux-2.id
+  ami                  = var.aws_ami_id
   instance_type        = "t3.micro"
   iam_instance_profile = var.iam_role
   subnet_id            = module.demo.private_subnets[0]
@@ -26,7 +16,7 @@ resource "aws_instance" "training-vault-01" {
 }
 
 resource "aws_instance" "training-jenkins-01" {
-  ami                  = data.aws_ami.amazon-linux-2.id
+  ami                  = var.aws_ami_id
   instance_type        = "t3.micro"
   iam_instance_profile = var.iam_role
   subnet_id            = module.demo.private_subnets[0]
@@ -46,7 +36,7 @@ resource "aws_instance" "training-jenkins-01" {
 }
 
 resource "aws_instance" "training-prometheus-01" {
-  ami                  = data.aws_ami.amazon-linux-2.id
+  ami                  = var.aws_ami_id
   instance_type        = "t3.micro"
   iam_instance_profile = var.iam_role
   subnet_id            = module.demo.private_subnets[0]
@@ -63,7 +53,7 @@ resource "aws_instance" "training-prometheus-01" {
 }
 
 resource "aws_instance" "dev_instance" {
-  ami                  = data.aws_ami.amazon-linux-2.id
+  ami                  = var.aws_ami_id
   instance_type        = "t3.micro"
   iam_instance_profile = var.iam_role
   subnet_id            = module.demo.public_subnets[0]
@@ -81,5 +71,6 @@ resource "aws_instance" "dev_instance" {
 
 resource "aws_eip" "dev" {
   instance = aws_instance.dev_instance.id
+  vpc = true
 
 }

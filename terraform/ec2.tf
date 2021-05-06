@@ -58,6 +58,8 @@ resource "aws_instance" "dev_instance" {
   iam_instance_profile = var.iam_role
   subnet_id            = module.demo.public_subnets[0]
 
+  user_data = file("helpers/dev_bootstrap.sh")
+
   # Security Groups
   vpc_security_group_ids = ["${aws_security_group.external_access.id}"]
 

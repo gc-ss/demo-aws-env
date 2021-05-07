@@ -15,7 +15,7 @@
           packages:
             - git
             - python3-pip
-            - docker
+            - docker-ce
     
       - name: Ensure wheel group
         group:

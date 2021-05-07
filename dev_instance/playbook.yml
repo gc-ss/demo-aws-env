@@ -15,6 +15,7 @@
           packages:
             - git
             - python3-pip
+            - docker
     
       - name: Ensure wheel group
         group:
@@ -24,7 +25,8 @@
       - name: Create User
         user:
           name: kunyp
-          groups: wheel
+          groups: wheel, docker
+          append: yes
 
       - name: Manage Key
         authorized_key:
@@ -86,6 +88,14 @@
           name: user.email
           scope: global
           value: '31052319+pmkuny@users.noreply.github.com'
+      
+      - name: Powerline
+        pip:
+          name: powerline-status
+          executable: /usr/local/bin/pip3
+          chdir: /home/kuny/
+          extra_args: --user
+
 
     handlers:
     - name: Restart SSHD

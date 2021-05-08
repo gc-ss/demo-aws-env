@@ -80,13 +80,13 @@
       - name: 
         community.general.git_config:
           name: user.name
-          scope: global
+          scope: system
           value: 'Patrick Kuny'
       
       - name: 
         community.general.git_config:
           name: user.email
-          scope: global
+          scope: system
           value: '31052319+pmkuny@users.noreply.github.com'
       
       - name: Powerline

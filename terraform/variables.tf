@@ -4,10 +4,20 @@ variable "public_subnets" { type = list(any) }
 variable "azs" { type = list(any) }
 variable "iam_role" { default = "DemoInstanceRole" }
 variable "hosted_zone" { type = string }
-variable "local_ip" { type = string }
+
+variable "prefix_corp_id" {
+    type = string
+    sensitive = true
+}
+
+variable "local_ip" {
+    type = string
+    sensitive = true
+}
 
 variable "dev_instance_dns" {
   type = string
+  sensitive = true
 }
 
 variable "tags_mgmt" {
